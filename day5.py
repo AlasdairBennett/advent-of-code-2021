@@ -57,17 +57,13 @@ class LineMap:
             for i in range(abs(ln.x1 - ln.x2) + 1):
                 if ln.y1 > ln.y2:
                     if ln.x1 > ln.x2:
-                        print("x: " + str(ln.x2 + i) + ", y: " + str(ln.y2 + i))
                         self.diagram[ln.y2 + i][ln.x2 + i] += 1
                     if ln.x1 < ln.x2:
-                        print("x: " + str(ln.x1 + i) + ", y: " + str(ln.y1 - i))
                         self.diagram[ln.y1 - i][ln.x1 + i] += 1
                 if ln.y1 < ln.y2:
                     if ln.x1 > ln.x2:
-                        print("x: " + str(ln.x2 + i) + ", y: " + str(ln.y2 - i))
                         self.diagram[ln.y2 - i][ln.x2 + i] += 1
                     if ln.x1 < ln.x2:
-                        print("x: " + str(ln.x1 + i) + ", y: " + str(ln.y1 + i))
                         self.diagram[ln.y1 + i][ln.x1 + i] += 1
 
     def count_overlap_points(self):
@@ -101,7 +97,3 @@ if __name__ == '__main__':
         mapobj.add_line(line)
 
     print(mapobj.count_overlap_points())
-
-    # drawList = list(map(int, lines[0].split(",")))
-    # lines.remove(lines[0])
-
