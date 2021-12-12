@@ -1,4 +1,3 @@
-
 class BingoBoard:
     board = [[]]
     hit_board = [[]]
