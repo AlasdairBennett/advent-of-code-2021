@@ -1,7 +1,7 @@
 def scan_file(filename):
     fo = open(filename)
     return fo.readlines()
-5
+
 
 if __name__ == '__main__':
     commands = scan_file("input.txt")
