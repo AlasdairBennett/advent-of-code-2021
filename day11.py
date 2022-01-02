@@ -11,7 +11,11 @@ class OctopusCave:
                 self.octopuses[octo_index].append(int(octo_val))
 
     def __repr__(self):
-        return str(self.octopuses)
+        retstr = ""
+        for row in self.octopuses:
+            retstr += str(row)
+            retstr += "\n"
+        return retstr
 
     def step(self):
         # add 1 to all octopus energy levels
@@ -25,25 +29,34 @@ class OctopusCave:
                     self.flash(row_index, col_index)
 
         # set flashed octopi to 0
+        is_all_flash = True
         for row_index, row in enumerate(self.octopuses):
             for col_index, octopus in enumerate(row):
                 if octopus > 9:
                     self.octopuses[row_index][col_index] = 0
+                else:
+                    is_all_flash = False
+        if is_all_flash:
+            return True
+        return False
 
     def flash_check(self, row_ind, col_ind):
         if row_ind < 0 or col_ind < 0:
             return
-        if row_ind > len(self.octopuses):
+        if row_ind > len(self.octopuses)-1:
             return
-        if col_ind > len(self.octopuses[row_ind]):
+        if col_ind > len(self.octopuses[row_ind])-1:
             return
 
+        if self.octopuses[row_ind][col_ind] == 10:
+            self.flash(row_ind, col_ind)
         self.octopuses[row_ind][col_ind] += 1
         if self.octopuses[row_ind][col_ind] == 10:
             self.flash(row_ind, col_ind)
 
     def flash(self, row_ind, col_ind):
         self.flash_total += 1
+        self.octopuses[row_ind][col_ind] += 1
         self.flash_check(row_ind-1, col_ind-1)
         self.flash_check(row_ind-1, col_ind)
         self.flash_check(row_ind-1, col_ind+1)
@@ -60,8 +73,12 @@ if __name__ == '__main__':
     lines = list(map(str.strip, lines))
 
     cave = OctopusCave(lines)
-    for i in range(10):
-        print(i)
+    for i in range(100):
         cave.step()
-    print(cave)
     print(cave.flash_total)
+
+    cave = OctopusCave(lines)
+    step_num = 0
+    while not cave.step():
+        step_num += 1
+    print(step_num + 1)
